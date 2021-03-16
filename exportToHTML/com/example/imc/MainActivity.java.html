@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.imc</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.text.DecimalFormat</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">private </span><span class="s1">EditText txtPeso</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText txtAltura</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">TextView txtResulatado</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s1">txtPeso = findViewById(R.id.txtPeso)</span><span class="s0">;</span>
+        <span class="s1">txtAltura = findViewById(R.id.txtAltura)</span><span class="s0">;</span>
+        <span class="s1">txtResulatado = findViewById(R.id.txtResulatado)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">//metodo responsavel pelo calculo do imc</span>
+    <span class="s0">public  void </span><span class="s1">calcularImc (View view){</span>
+        <span class="s2">//conversão de string</span>
+        <span class="s0">double </span><span class="s1">peso = Double.parseDouble(txtPeso.getText().toString())</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">altura = Double.parseDouble(txtAltura.getText().toString())</span><span class="s0">;</span>
+
+        <span class="s0">double </span><span class="s1">imc = (</span><span class="s0">double</span><span class="s1">)peso/(altura*altura)</span><span class="s0">;</span>
+        <span class="s1">DecimalFormat df = </span><span class="s0">new </span><span class="s1">DecimalFormat((</span><span class="s3">&quot;0.00&quot;</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s2">/*formula= IMC= PESO /(ALTURA*ALTURA) 
+        * &lt;= 18,5 - abaixo do peso 
+        * entre 18,6 e 24,9 - peso ideal(parabens) 
+        * entre 25,0 e 29,9 - levemente acima do peso 
+        * entre 30,0 e 34,9 - Obesidade grau I 
+        * entre 35,0 e 39,9 - Obesidade grau II(severa) 
+        * acima de 40 - Obesidade grau III(Mórbida) 
+        * */</span>
+        <span class="s0">if </span><span class="s1">(imc &lt; </span><span class="s4">18.5</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Abaixo do Peso&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if </span><span class="s1">(imc &gt;= </span><span class="s4">18.5 </span><span class="s1">&amp;&amp; imc &lt;= </span><span class="s4">24.99</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Peso ideal(Parabéns)&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(imc &gt;= </span><span class="s4">25.0 </span><span class="s1">&amp;&amp; imc &lt;= </span><span class="s4">29.99</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Levemente acima do Peso &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else if</span><span class="s1">(imc &gt;= </span><span class="s4">30.0 </span><span class="s1">&amp;&amp; imc &lt;= </span><span class="s4">34.99</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Obesidade grau I &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(imc &gt;= </span><span class="s4">35.0 </span><span class="s1">&amp;&amp; imc &lt;= </span><span class="s4">39.99</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Obesidade grau II(Severa) &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(imc &gt; </span><span class="s4">40</span><span class="s1">){</span>
+            <span class="s1">txtResulatado.setText(df.format(imc) + </span><span class="s3">&quot; Obesidade grau III(Mórbida) &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
